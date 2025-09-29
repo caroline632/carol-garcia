@@ -107,7 +107,7 @@ print(R.version.string)
 #> class(x)           
 #[1] "numeric"
 #> class(x) <- "foo"
-#> class(x)          
+#> class(x)          .
 #[1] "foo"
 #> name <- readline(prompt = "Input your name: ")
 #Input your name: age <- readline(prompt = "Input your age: ")
