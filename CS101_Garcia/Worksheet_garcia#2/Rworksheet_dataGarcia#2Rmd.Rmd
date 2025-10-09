@@ -104,4 +104,4 @@ print(celebrity_data)
 # Modify J.K. Rowling's ranking and pay
 celebrity_data[celebrity_data$Name == "J.K. Rowling", c("Ranking", "Pay")] <- c(15, 90)
 print(celebrity_data)  
-```
+``` 
