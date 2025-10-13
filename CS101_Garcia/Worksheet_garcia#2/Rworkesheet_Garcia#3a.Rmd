@@ -1,0 +1,105 @@
+---
+title: "Rworkesheet_Garcia#3a"
+output: html_document
+---
+
+```{r}
+#Part 1
+#a.
+LETTERS[1:11]
+
+#b
+LETTERS[seq(1,25,by=2)]
+
+#c.
+LETTERS[c(1,5,9,15,21)]
+
+#d.
+last5 <- LETTERS[22:26]
+
+#e.
+between <- LETTERS[15:24]
+
+```
+```{r}
+#Part 2
+
+#a.
+city <- c("Tugue-garao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+
+#b.
+temp <- c(42,39,34,34,30,27)
+
+#c.
+citytemp <- data.frame(city,temp)
+
+#d.
+names(citytemp)[1] <- "City"
+names(citytemp)[2] <- "Temperature"
+citytemp
+
+#e.
+str(citytemp)
+#the data frame containing six cities with their corresponding temperature
+
+#f.
+#the content of row 3 and 4 is iloilo and tacloban,they have the same temperature
+
+#g.
+print(citytemp[1,])
+print(citytemp[6,])
+```
+```{r}
+#1a.
+matrix(c(5,6,7,4,3,2,1,2,3,7,8,9),nrow = 2)
+
+matrix(data = c(3,4,5,6,7,8),3,2)
+
+
+diag(1,nrow = 6,ncol = 5)
+
+diag(6)
+```
+```{r}
+#2a.
+my_matrix <- matrix(c(1:8, 11:14),nrow =3,ncol = 4)
+
+#2b.
+my_matrix * 2
+
+#2c.
+my_matrix[2,]
+
+#2d.
+my_matrix[1:2, 3:4]
+
+#2e.
+my_matrix[3, 2:3]
+
+#2f.
+my_matrix[, 4]
+
+#2g.
+dimnames(my_matrix) <- list(c("isa","dalawa","tatlo"))
+                            #Rows names (3 rows)c ("uno","dos","tres","quatro") # Colums names (4 columns) )
+                            
+                            
+#2h.
+dim(my_matrix) <- c(6,2)
+my_matrix
+
+```
+```{r}
+#array
+
+#3a.
+
+
+#3b.
+
+#3c.
+```
+
+
+
+
