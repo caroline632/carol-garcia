@@ -93,11 +93,31 @@ my_matrix
 #array
 
 #3a.
+# Original values
+values <- c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1)
 
- 
+# Repeat each value twice
+rep_values <- rep(values, each = 2)
+
+# Create a 3D array with 2 rows, 4 columns, and 3 dimensions
+array_dta <- array(rep_values, dim = c(2, 4, 3))
+array_dta
+
 #3b.
+dim(array_dta)
 
 #3c. 
+# Adding names
+dimnames(array_dta) <- list(
+  rows = c("a", "b"),   # lowercase row names
+  columns = c("A", "B", "C", "D"),   # uppercase column names
+  dimension = c("1st-Dimensional Array", 
+                "2nd-Dimensional Array", 
+                "3rd-Dimensional Array")  # layer names
+)
+
+array_dta
+
 ```
 
 
