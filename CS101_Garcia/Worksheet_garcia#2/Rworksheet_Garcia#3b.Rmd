@@ -1,6 +1,8 @@
 ---
 title: "Rworksheet_Garcia#3b"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 ```{r}
 
@@ -18,8 +20,9 @@ data <- data.frame(respondents, sex, fathers_occupation, persons_at_home, siblin
 data
 
 ```
-#1.b
+
 ```{r}
+#1.b
 # Get the structure of the data
 str(data)
 
@@ -27,48 +30,49 @@ str(data)
 summary(data)
 ```
 
-#1.c
+
 ```{r}
+#1.c
 mean_siblings <- mean(respondents$Siblings_at_School)
 mean_siblings
 
 ```
 
 
-#1.d
 ```{r}
+#1.d
 respondents[1:2, ]
 
 ```
 
-#1.e
 ```{r}
+#1.e
 respondents[c(3,5), c(2,4)]
 
 ```
 
-#1.f
 ```{r}
+#1.f
 types_houses <- respondents$Types_of_Houses
 types_houses
 ```
 
-#1.g
 ```{r}
+#1.g
 subset(respondents, Sex == 1 & Fathers_Occupation == 1)
 ```
 
-#1.h
 ```{r}
+#1.h
 subset(respondents, Sex == 2 & Siblings_at_School >= 5)
 ```
 
-#2.a
 ```{r}
-# Create an empty data frame
+#2.a
+## Create an empty data frame
 df = data.frame(
   Ints = integer(),
-  Doubles = double(),
+  Doubles = double(), 
   Characters = character(),
   Logicals = logical(),
   Factors = factor(),
@@ -79,8 +83,8 @@ print("Structure of the empty dataframe:")
 print(str(df))
 ```
 
-#3.a
 ```{r}
+#3.a
 # Create the data frame
 HouseholdData <- data.frame(
   Respondents = 1:10,
@@ -91,10 +95,10 @@ HouseholdData <- data.frame(
   Types_of_Houses = c("Wood","Concrete","Concrete","Wood","Semi-concrete",
                       "Semi-concrete","Wood","Semi-concrete","Semi-concrete","Concrete")
 )
-
+         
 # Save to CSV
-write.csv(HouseholdData, "HouseholdData.csv", row.names = FALSE)
-
+write.csv(HouseholdData, "HouseholdData.csv", row.names = FALSE) 
+  
 ```
 
 #3.b
@@ -112,9 +116,8 @@ house_data$Types_of_Houses <- factor(
 )
 house_data$Types_of_Houses
 ```
-
-#3.d
 ```{r}
+#3.d
 house_data$Fathers_Occupation <- factor(
   house_data$Fathers_Occupation,
   levels = c(1, 2, 3),
@@ -123,20 +126,20 @@ house_data$Fathers_Occupation <- factor(
 house_data$Fathers_Occupation
 ```
 
-#3.e
 ```{r}
+#3.e
 subset(house_data, Sex == 2 & Fathers_Occupation == "Driver")
 
 ```
 
-#3.f
 ```{r}
+#3.f
 subset(house_data, Siblings_at_School >= 5)
 
 ```
 
-#4.interpret the graph
 ```{r}
+#4.interpret the graph
 Date <- c(
   "July 14", "July 14", "July 14",
   "July 15", "July 15", "July 15",
