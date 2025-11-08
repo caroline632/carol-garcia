@@ -157,7 +157,7 @@ Modified_Data <- data.frame(
   Celebrity = Celebrity_Name, 
   Pay = Pay_Millions)
 
-Modified_Data 
+Modified_Data
 
 
 
