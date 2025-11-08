@@ -1,7 +1,13 @@
 ---
 title: "Rworkesheet_Garcia#3a"
-output: html_document
+author: "Carol D. Garcia"
+date: "2025-11-08"
+output: pdf_document
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ```{r}
 #Part 1
@@ -117,9 +123,4 @@ dimnames(array_dta) <- list(
 )
 
 array_dta
-
 ```
-
-
-
-
