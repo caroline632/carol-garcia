@@ -78,7 +78,7 @@ df <- data.frame(
 print("Structure of the empty dataframe:")
 print(str(df))
 #explanation
-##The str() function outputs the structure of the empty data frame, showing that it has no data (0 rows) but has defined column types. The column types are specified as integers, doubles, characters, logicals, and factors, with the factor column having no levels as it is empty.
+#The str() function outputs the structure of the empty data frame, showing that it has no data (0 rows) but has defined column types. The column types are specified as integers, doubles, characters, logicals, and factors, with the factor column having no levels as it is empty.
 ```
 
 ```{r}
@@ -128,26 +128,28 @@ print(females_driver)
 siblings_ge5 <- subset(imported_data, Siblings_at_School >= 5)
 print(siblings_ge5)
 ```
-
 ```{r}
 #4
 #interpret the graph
 Date <- c(
-  "July 14", "July 14", "July 14",
-  "July 15", "July 15", "July 15",
-  "July 17", "July 17", "July 17",
-  "July 18", "July 18", "July 18",
-  "July 20", "July 20", "July 20",
-  "July 21", "July 21", "July 21"
+"July 14", "July 14", "July 14",
+"July 15", "July 15", "July 15",
+"July 17", "July 17", "July 17",
+"July 18", "July 18", "July 18",
+"July 20", "July 20", "July 20",
+"July 21", "July 21", "July 21"
 )
 Sentiment <- rep(c("Negative", "Neutral", "Positive"), times = 6)
 Count <- c(
-  2400, 1600, 1700,
-  3800, 2900, 3200,
-  3300, 1700, 2500,
-  3300, 2000, 2600,
-  2200, 1400, 1600,
-  3700, 2800, 3400
+2400, 1600, 1700,
+3800, 2900, 3200,
+3300, 1700, 2500,
+3300, 2000, 2600,
+2200, 1400, 1600,
+3700, 2800, 3400
 )
 sentiment_data <- data.frame(Date, Sentiment, Count)
 sentiment_data
+#The graph shows the number of tweets classified into negative,neutral,and positive sentiments accross several dates in july 2020(July 14-21)
+```
+
