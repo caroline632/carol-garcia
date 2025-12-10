@@ -1,0 +1,229 @@
+---
+title: "RWorkshet_Garcia4c"
+author: "Carol D. Garcia"
+date: "2025-12-10"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(readxl)
+
+# 1.
+write.csv(mpg, "mpg.csv", row.names = FALSE)
+mpg_tbl <- read.csv("mpg.csv", header = TRUE)
+str(mpg_tbl)
+
+cat_vars <- names(mpg_tbl)[sapply(mpg_tbl, function(x) is.character(x) | is.factor(x))]
+cat_vars
+num_vars <- names(mpg_tbl)[sapply(mpg_tbl, is.numeric)]
+num_vars
+```
+```{r}
+# 2a.
+mpg_data <- mpg
+
+manuf_summary <- mpg_data %>%
+  group_by(manufacturer) %>%
+  summarise(model_count = n_distinct(model)) %>%
+  arrange(desc(model_count))
+
+print("Unique models per manufacturer:")
+print(manuf_summary)
+
+top_manuf <- manuf_summary$manufacturer[1]
+print(paste("Manufacturer with most models:", top_manuf))
+
+model_summary <- mpg_data %>%
+  group_by(model) %>%
+  summarise(variant_count = n()) %>%
+  arrange(desc(variant_count))
+
+print("Model variations:")
+print(model_summary)
+
+top_model <- model_summary$model[1]
+print(paste("Model with most variations:", top_model))
+
+barplot(height = manuf_summary$model_count,
+        names.arg = manuf_summary$manufacturer,
+        col = "darkgreen",
+        las = 2,
+        main = "Unique Models per Manufacturer (Base R)",
+        ylab = "Count of Unique Models")
+
+ggplot(manuf_summary, aes(x = reorder(manufacturer, model_count), y = model_count)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(title = "Unique Models per Manufacturer (ggplot2)",
+       x = "Manufacturer",
+       y = "Unique Model Count")
+
+```
+```{r}
+# 2b.
+ggplot(mpg_data, aes(x = model, y = manufacturer)) +
+  geom_point() +
+  labs(title = "Raw Model vs Manufacturer") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+model_variants <- mpg_data %>%
+  group_by(manufacturer, model) %>%
+  summarise(count = n()) %>%
+  ungroup()
+
+ggplot(model_variants, aes(x = model, y = manufacturer, size = count)) +
+  geom_point(color = "purple") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Model vs Manufacturer (size = number of variants)",
+       x = "Model",
+       y = "Manufacturer")
+
+```
+```{r}
+# 3.
+top_20 <- mpg_data %>% slice(1:20)
+
+ggplot(top_20, aes(x = model, y = factor(year))) +
+  geom_point(color = "brown", size = 3) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Top 20 Observations: Model vs Year",
+       x = "Model",
+       y = "Year")
+
+```
+```{r}
+# 4.
+model_freq <- mpg_data %>%
+  group_by(model) %>%
+  summarise(car_count = n()) %>%
+  arrange(desc(car_count))
+
+print(model_freq)
+
+top20_models <- model_freq %>% slice(1:20)
+
+ggplot(top20_models, aes(x = reorder(model, car_count), y = car_count, fill = model)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Top 20 Models by Car Count",
+       x = "Model",
+       y = "Number of Cars") +
+  guides(fill = FALSE)
+
+ggplot(top20_models, aes(x = reorder(model, car_count), y = car_count, fill = model)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Top 20 Models by Car Count (Horizontal)",
+       x = "Model",
+       y = "Number of Cars") +
+  guides(fill = FALSE)
+```
+```{r}
+# 5.
+ggplot(mpg_data, aes(x = cyl, y = displ, color = displ)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "green", high = "red") +
+  labs(title = "Cylinders vs Engine Displacement",
+       x = "Number of Cylinders",
+       y = "Engine Displacement (L)",
+       color = "Displacement") +
+  theme_minimal()
+```
+```{r}
+# 6.
+ggplot(mpg_data, aes(x = displ, y = hwy, color = cty)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(title = "Displacement vs Highway MPG (colored by City MPG)",
+       x = "Engine Displacement (L)",
+       y = "Highway MPG",
+       color = "City MPG") +
+  theme_minimal()
+
+traffic_tbl <- data.frame(
+  Date = as.Date('2025-11-01') + 0:9,
+  Junction = rep(c("Junction A", "Junction B"), each = 5),
+  Vehicle_Count = c(120, 150, 130, 160, 140, 200, 210, 190, 205, 220),
+  Avg_Speed = c(35.5, 34.2, 36.0, 33.8, 34.5, 32.0, 31.5, 33.0, 30.8, 29.5)
+)
+
+write.csv(traffic_tbl, "traffic.csv", row.names = FALSE)
+traffic_data <- read.csv("traffic.csv", stringsAsFactors = FALSE)
+
+cat("Number of observations:", nrow(traffic_data), "\n")
+cat("Variables in the traffic dataset:\n")
+print(names(traffic_data))
+
+junction_A_tbl <- traffic_data %>% filter(Junction == "Junction A")
+junction_B_tbl <- traffic_data %>% filter(Junction == "Junction B")
+
+print("Junction A data:")
+print(junction_A_tbl)
+print("Junction B data:")
+print(junction_B_tbl)
+
+ggplot(traffic_data, aes(x = Date, y = Vehicle_Count, color = Junction)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  labs(title = "Vehicle Count Over Time by Junction",
+       x = "Date",
+       y = "Vehicle Count",
+       color = "Junction") +
+  theme_minimal()
+```
+```{r}
+# 7.
+alexa_data <- read_excel("alexa-file.xlsx")
+
+alexa_data <- alexa_data %>%
+  mutate(
+    verified_reviews_num = as.numeric(verified_reviews),
+    avg_rating = as.numeric(rating),
+    review_date = as.Date(date)
+  )
+
+# Reviews over time
+reviews_time <- alexa_data %>%
+  group_by(review_date) %>%
+  summarise(total_reviews = sum(verified_reviews_num, na.rm = TRUE))
+
+ggplot(reviews_time, aes(x = review_date, y = total_reviews)) +
+  geom_line(color = "steelblue") +
+  geom_point(color = "red") +
+  labs(title = "Verified Reviews Over Time",
+       x = "Date",
+       y = "Number of Verified Reviews") +
+  theme_minimal()
+
+# Variation vs Ratings
+variation_ratings <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(mean_rating = mean(avg_rating, na.rm = TRUE),
+            count = n()) %>%
+  arrange(desc(mean_rating))
+
+ggplot(variation_ratings, aes(x = reorder(variation, mean_rating), y = mean_rating, fill = variation)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Average Rating per Variation",
+       x = "Variation",
+       y = "Average Rating") +
+  theme_minimal() +
+  guides(fill = FALSE)
+```
+
+
+
+
+
+
+
+
