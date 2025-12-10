@@ -54,13 +54,13 @@ print(paste("Model with most variations:", top_model))
 
 barplot(height = manuf_summary$model_count,
         names.arg = manuf_summary$manufacturer,
-        col = "darkgreen",
+        col = "skyblue",
         las = 2,
         main = "Unique Models per Manufacturer (Base R)",
         ylab = "Count of Unique Models")
 
 ggplot(manuf_summary, aes(x = reorder(manufacturer, model_count), y = model_count)) +
-  geom_col(fill = "darkorange") +
+  geom_col(fill = "purple") +
   coord_flip() +
   labs(title = "Unique Models per Manufacturer (ggplot2)",
        x = "Manufacturer",
@@ -80,7 +80,7 @@ model_variants <- mpg_data %>%
   ungroup()
 
 ggplot(model_variants, aes(x = model, y = manufacturer, size = count)) +
-  geom_point(color = "purple") +
+  geom_point(color = "yellow") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Model vs Manufacturer (size = number of variants)",
        x = "Model",
@@ -92,7 +92,7 @@ ggplot(model_variants, aes(x = model, y = manufacturer, size = count)) +
 top_20 <- mpg_data %>% slice(1:20)
 
 ggplot(top_20, aes(x = model, y = factor(year))) +
-  geom_point(color = "brown", size = 3) +
+  geom_point(color = "yellowgreen", size = 3) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Top 20 Observations: Model vs Year",
        x = "Model",
@@ -130,7 +130,7 @@ ggplot(top20_models, aes(x = reorder(model, car_count), y = car_count, fill = mo
 # 5.
 ggplot(mpg_data, aes(x = cyl, y = displ, color = displ)) +
   geom_point(size = 3) +
-  scale_color_gradient(low = "green", high = "red") +
+  scale_color_gradient(low = "brown", high = "lightblue") +
   labs(title = "Cylinders vs Engine Displacement",
        x = "Number of Cylinders",
        y = "Engine Displacement (L)",
@@ -141,7 +141,7 @@ ggplot(mpg_data, aes(x = cyl, y = displ, color = displ)) +
 # 6.
 ggplot(mpg_data, aes(x = displ, y = hwy, color = cty)) +
   geom_point(size = 3) +
-  scale_color_gradient(low = "blue", high = "red") +
+  scale_color_gradient(low = "red", high = "orange") +
   labs(title = "Displacement vs Highway MPG (colored by City MPG)",
        x = "Engine Displacement (L)",
        y = "Highway MPG",
@@ -196,8 +196,8 @@ reviews_time <- alexa_data %>%
   summarise(total_reviews = sum(verified_reviews_num, na.rm = TRUE))
 
 ggplot(reviews_time, aes(x = review_date, y = total_reviews)) +
-  geom_line(color = "steelblue") +
-  geom_point(color = "red") +
+  geom_line(color = "darkblue") +
+  geom_point(color = "yellowgreen") +
   labs(title = "Verified Reviews Over Time",
        x = "Date",
        y = "Number of Verified Reviews") +
